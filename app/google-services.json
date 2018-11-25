@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "811213499103",
+    "firebase_url": "https://recipe-chef-7c24f.firebaseio.com",
+    "project_id": "recipe-chef-7c24f",
+    "storage_bucket": "recipe-chef-7c24f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:811213499103:android:f554de17c86d6c63",
+        "android_client_info": {
+          "package_name": "com.codexive.recipechef"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "811213499103-qjnaqmb2ihck2um2vvbardv0f0se0c2q.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.codexive.recipechef",
+            "certificate_hash": "489851bf99a8c9fbd4afc13814061e570e678fa1"
+          }
+        },
+        {
+          "client_id": "811213499103-r2vi3km22d6t5n72k6ogfigdk15hpnp6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGtHsOUl6QF_-ODlN2CI9-ebpHbDdvV1g"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "811213499103-r2vi3km22d6t5n72k6ogfigdk15hpnp6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
