@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/menu">
+    <item android:title="@string/popular"
+          android:icon="@drawable/ic_launcher_foreground"
+          android:id="@+id/popular"/>
+    <item android:title="@string/all_recipes"
+          android:icon="@drawable/ic_launcher_foreground"
+          android:id="@+id/list"/>
+    <item android:title="@string/use_leftovers"
+          android:icon="@drawable/ic_launcher_foreground"
+          android:id="@+id/leftovers"/>
+    <item android:title="@string/account"
+          android:icon="@drawable/ic_launcher_foreground"
+          android:id="@+id/account"/>
+</menu>
