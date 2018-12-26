@@ -3,4 +3,9 @@
     <color name="colorPrimary">#C14348</color>
     <color name="colorPrimaryDark">#A14348</color>
     <color name="colorAccent">#EEEEEE</color>
+    <color name="complementary">#43c1bd</color>
+    <color name="analogous1">#c14386</color>
+    <color name="analogous2">#c17e43</color>
+    <color name="triadic1">#c1bd43</color>
+    <color name="triadic2">#47c143</color>
 </resources>

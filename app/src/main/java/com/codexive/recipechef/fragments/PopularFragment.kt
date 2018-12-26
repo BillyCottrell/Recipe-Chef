@@ -27,7 +27,7 @@ class PopularFragment : BaseFragment(), RecyclerViewClickListener {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_popular, container, false)
+        return inflater.inflate(R.layout.fragment_popular,null)
     }
 
     override fun onAttach(context: Context) {

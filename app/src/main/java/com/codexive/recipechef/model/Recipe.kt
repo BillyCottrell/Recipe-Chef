@@ -1,7 +1,12 @@
 package com.codexive.recipechef.model
 
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import com.squareup.moshi.Json
+import java.io.Serializable
 
-@Parcelize
-data class Recipe(val id: Int, var naam: String, var description: String,var personen:Int, var stappen: Array<String>, var ingredienten: Array<Ingredient>) : Parcelable
+open class Recipe(
+    @field:Json(name="aantalPersonen") val aantalPersonen:Int,
+    @field:Json(name="basisIngredient") val basisIngredient: Boolean,
+    @field:Json(name="beschrijving") val beschrijving: String,
+    @field:Json(name="ingredienten") val ingredienten: Array<Ingredient>?,
+    @field:Json(name="naam") val naam: String,
+    var stappen: Array<String>) : Serializable

@@ -29,7 +29,7 @@ class LeftoversFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_leftovers, container, false)
+        return inflater.inflate(R.layout.fragment_leftovers, null)
     }
 
     override fun onAttach(context: Context) {

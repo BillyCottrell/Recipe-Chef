@@ -19,7 +19,6 @@ class MainActivity : AppCompatActivity(),
     ListFragment.OnFragmentInteractionListener{
 
     private val database = FirebaseDatabase.getInstance()
-    private val myRef = database.getReference("TopicList")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
