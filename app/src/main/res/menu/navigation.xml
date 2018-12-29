@@ -13,4 +13,8 @@
     <item android:title="@string/account"
           android:icon="@drawable/ic_launcher_foreground"
           android:id="@+id/account"/>
+    <item android:title="Recipe"
+          android:visible="false"
+          android:icon="@drawable/ic_launcher_foreground"
+          android:id="@+id/recipe"/>
 </menu>

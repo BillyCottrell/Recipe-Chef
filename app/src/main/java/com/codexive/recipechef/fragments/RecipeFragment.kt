@@ -1,38 +1,63 @@
 package com.codexive.recipechef.fragments
 
 import android.content.Context
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.codexive.recipechef.R
-import com.codexive.recipechef.utils.RecyclerViewClickListener
-
+import com.codexive.recipechef.model.Recipe
+import kotlinx.android.synthetic.main.fragment_recipe.*
 
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [PopularFragment.OnFragmentInteractionListener] interface
+ * [RecipeFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [PopularFragment.newInstance] factory method to
+ * Use the [RecipeFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class PopularFragment : BaseFragment() {
+class RecipeFragment : BaseFragment() {
+
+    private var recipe: Recipe? = null
     private var listener: OnFragmentInteractionListener? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        arguments?.let {
+            recipe = it.getSerializable("recipe") as Recipe
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_popular,null)
+        return inflater.inflate(R.layout.fragment_recipe, container, false)
     }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    fun onButtonPressed(uri: Uri) {
+        listener?.recipeClicked()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        recipeImage.setImageResource(recipeImage.resources.getIdentifier("keldermanlunch1", "drawable", "com.codexive.recipechef"))
+        txtNaam.text = recipe?.naam
+        txtPreparationTime.text = String.format("%duur %dmin",recipe!!.bereidingstijd / 60, recipe!!.bereidingstijd % 60)
+        txtBeschrijving.text = recipe?.beschrijving
+    }
+
+
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        TAG = "PopularFragment"
+        TAG = "RecipeFragment"
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
@@ -57,7 +82,7 @@ class PopularFragment : BaseFragment() {
      * for more information.
      */
     interface OnFragmentInteractionListener {
-        fun popularClicked()
+        fun recipeClicked()
     }
 
     companion object {
@@ -68,7 +93,11 @@ class PopularFragment : BaseFragment() {
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance() =
-            PopularFragment()
+        fun newInstance(recipe: Recipe) =
+            RecipeFragment().apply {
+                arguments = Bundle().apply {
+                    putSerializable("recipe", recipe)
+                }
+            }
     }
 }
