@@ -1,10 +1,8 @@
 package com.codexive.recipechef.fragments
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import android.support.v7.widget.LinearLayoutCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -20,13 +18,13 @@ import com.codexive.recipechef.utils.RecyclerViewClickListener
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [ListFragment.OnFragmentInteractionListener] interface
+ * [RecipeListFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [ListFragment.newInstance] factory method to
+ * Use the [RecipeListFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class ListFragment : Fragment(), RecyclerViewClickListener{
+class RecipeListFragment : Fragment(), RecyclerViewClickListener{
 
     private var listener: OnFragmentInteractionListener? = null
     private lateinit var recyclerView: RecyclerView
@@ -38,13 +36,13 @@ class ListFragment : Fragment(), RecyclerViewClickListener{
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_recipe_list, container, false)
         // get view from inside the fragment
         recyclerView = view.findViewById<RecyclerView>(R.id.recList)
         // put its layout on Linearlayout and give the context with it
         recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
         // make an empty arraylist of recipes
-        recipeArrayList = arrayListOf<Recipe>()
+        recipeArrayList = arrayListOf()
         // make a new recipe_list_item adapter with the context, arraylist and itemlistener
         adapter = RecipeAdapter(this.requireContext(), recipeArrayList, this)
         // set the recyclerView its adapter
@@ -66,37 +64,37 @@ class ListFragment : Fragment(), RecyclerViewClickListener{
                 arrayOf(
                     Ingredient(
                         "packed dark brown sugar",
-                        "Steak",
+                        "Steak and marinade",
                         "1/4",
                         "cup"
                     ),
                     Ingredient(
                         "Minced green onions",
-                        "Steak",
+                        "Steak and marinade",
                         "1/4",
                         "cup"
                     ),
                     Ingredient(
                         "Bourbon",
-                        "Steak",
+                        "Steak and marinade",
                         "1/4",
                         "cup"
                     ),
                     Ingredient(
                         "low-sodium soy sauce",
-                        "Steak",
+                        "Steak and marinade",
                         "1/4",
                         "cup"
                     ),
                     Ingredient(
                         "Dijon mustard",
-                        "Steak",
+                        "Steak and marinade",
                         "1/4",
                         "cup"
                     ),
                     Ingredient(
                         "Freshly ground pepper",
-                        "Steak",
+                        "Steak and marinade",
                         "1/2",
                         "teaspoon"
                     ),
@@ -107,10 +105,11 @@ class ListFragment : Fragment(), RecyclerViewClickListener{
                         "teaspoon"
                     ),
                     Ingredient(
-                        "Flank Steak, trimmed",
+                        "Flank Steak",
                         "Steak and marinade",
                         "2",
-                        "pounds"
+                        "pounds",
+                        "trimmed"
                     ),
                     Ingredient(
                         "Non-Stick cooking spray",
@@ -129,9 +128,10 @@ class ListFragment : Fragment(), RecyclerViewClickListener{
                         "pounds"
                     ),
                     Ingredient(
-                        "garlic cloves, peeled",
+                        "garlic cloves",
                         "Potatoes",
-                        "6"
+                        "6",
+                        notes = "peeled"
                     ),
                     Ingredient(
                         "reduced-fat sour cream",
@@ -170,12 +170,14 @@ class ListFragment : Fragment(), RecyclerViewClickListener{
                         "cup"
                     ),
                     Ingredient(
-                        "Fresh chives, Garnish, cut into 1 inch pieces",
+                        "Fresh chives",
                         "Potatoes",
                         "1",
-                        "bunch"
+                        "bunch",
+                        "Garnish, cut into 1 inch pieces"
                     )
                 ),
+                510,
                 arrayOf(
                     "To prepare steak, combine first 7 ingredients in a large zip-top plastic bag; add steak. Seal and marinate in refrigerator 8 hours or overnight, turning bag occasionally. Remove steak from bag, reserving marinade.",
                     "Prepare grill.",
@@ -184,9 +186,7 @@ class ListFragment : Fragment(), RecyclerViewClickListener{
                     "To prepare potatoes, place potatoes and garlic in a large Dutch oven; cover with water. Bring to a boil. Reduce heat; simmer 30 minutes or until tender. Drain.",
                     "Return potatoes and garlic to pan, and place over medium heat. Add sour cream, milk, butter, salt, and 1/4 teaspoon pepper. Mash potato mixture to desired consistency with a potato masher. Stir in chopped chives. Mound 3/4 cup potatoes on each of 8 plates; arrange 3 ounces steak around each serving of potatoes. Drizzle 1 tablespoon sauce on each plate; sprinkle with chive pieces, if desired."
                 ),
-                "",
-                "Pork tenderloin will also work in this recipe_list_item.",
-                510
+                ""
             )
         )
         // if all recipes are made then notify the adapter that the data has changed
@@ -231,10 +231,10 @@ class ListFragment : Fragment(), RecyclerViewClickListener{
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
          *
-         * @return A new instance of fragment ListFragment.
+         * @return A new instance of fragment RecipeListFragment.
          */
         @JvmStatic
         fun newInstance() =
-            ListFragment()
+            RecipeListFragment()
     }
 }

@@ -7,52 +7,33 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
 import com.codexive.recipechef.R
-import com.codexive.recipechef.model.Recipe
-import kotlinx.android.synthetic.main.fragment_recipe.*
 
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [RecipeFragment.OnFragmentInteractionListener] interface
+ * [PreparationListFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [RecipeFragment.newInstance] factory method to
+ * Use the [PreparationListFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class RecipeFragment : Fragment() {
-
-    private var recipe: Recipe? = null
+class PreparationListFragment : Fragment() {
     private var listener: OnFragmentInteractionListener? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            recipe = it.getSerializable("recipe") as Recipe
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_recipe, container, false)
+        return inflater.inflate(R.layout.fragment_preparation_list, container, false)
     }
 
-    override fun onStart() {
-        super.onStart()
-        recipeImage.setImageResource(recipeImage.resources.getIdentifier("keldermanlunch1", "drawable", "com.codexive.recipechef"))
-        txtName.text = recipe!!.name
-        txtPreparationTime.text = String.format("%d uur %d min",recipe!!.preparationTime / 60, recipe!!.preparationTime % 60)
-        txtDescription.text = recipe!!.description
-        txtServings.text = String.format("%d",recipe!!.servings)
-        recipeIngredients.setOnClickListener{
-            listener?.recipeClicked(recipe!!)
-        }
+    // TODO: Rename method, update argument and hook method into UI event
+    fun onButtonPressed(uri: Uri) {
+        listener?.onFragmentInteraction(uri)
     }
-
-
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -80,22 +61,22 @@ class RecipeFragment : Fragment() {
      * for more information.
      */
     interface OnFragmentInteractionListener {
-        fun recipeClicked(recipe: Recipe)
+        // TODO: Update argument type and name
+        fun onFragmentInteraction(uri: Uri)
     }
 
     companion object {
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
-         * @return A new instance of fragment RecipeFragment.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment PreparationListFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
-        fun newInstance(recipe: Recipe) =
-            RecipeFragment().apply {
-                arguments = Bundle().apply {
-                    putSerializable("recipe", recipe)
-                }
-            }
+        fun newInstance(param1: String, param2: String) =
+            PreparationListFragment()
     }
 }

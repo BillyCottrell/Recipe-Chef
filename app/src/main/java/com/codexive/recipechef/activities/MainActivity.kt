@@ -17,11 +17,11 @@ import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),
-    PopularFragment.OnFragmentInteractionListener,
     AccountFragment.OnFragmentInteractionListener,
     LeftoversFragment.OnFragmentInteractionListener,
-    ListFragment.OnFragmentInteractionListener, RecipeFragment.OnFragmentInteractionListener {
-
+    RecipeListFragment.OnFragmentInteractionListener,
+    RecipeFragment.OnFragmentInteractionListener,
+    MyRecipesFragment.OnFragmentInteractionListener{
 
     //private val database = FirebaseDatabase.getInstance()
     private var recipe: Recipe?=null
@@ -36,12 +36,12 @@ class MainActivity : AppCompatActivity(),
         super.onStart()
         navigation.setOnNavigationItemSelectedListener {
             when (it.itemId) {
-                R.id.popular -> {
-                    viewpager_main.setCurrentItem(BaseFragment.POPULAR, false)
-                    true
-                }
                 R.id.list -> {
                     viewpager_main.setCurrentItem(BaseFragment.LIST, false)
+                    true
+                }
+                R.id.myRecipe ->{
+                    viewpager_main.setCurrentItem(BaseFragment.MYRECIPES, false)
                     true
                 }
                 R.id.leftovers -> {
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity(),
                     true
                 }
                 else -> {
-                    viewpager_main.setCurrentItem(BaseFragment.POPULAR, false)
+                    viewpager_main.setCurrentItem(BaseFragment.LIST, false)
                     true
                 }
             }
@@ -61,16 +61,12 @@ class MainActivity : AppCompatActivity(),
         viewpager_main.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
             override fun getItem(p0: Int): Fragment {
                 when (p0) {
-                    BaseFragment.POPULAR -> {
-                        return PopularFragment.newInstance()
-                    }
-                    BaseFragment.LIST -> {
-                        return ListFragment.newInstance()
-                    }
+                    BaseFragment.LIST -> return RecipeListFragment.newInstance()
+                    BaseFragment.MYRECIPES -> return MyRecipesFragment.newInstance()
                     BaseFragment.LEFTOVERS -> return LeftoversFragment.newInstance()
                     BaseFragment.ACCOUNT -> return AccountFragment.newInstance()
                 }
-                return PopularFragment()
+                return RecipeListFragment()
             }
 
             override fun getCount(): Int {
@@ -84,18 +80,18 @@ class MainActivity : AppCompatActivity(),
 
             override fun onPageSelected(position: Int) {
                 when (position) {
-                    BaseFragment.POPULAR -> {
-                        if (navigation.visibility == View.INVISIBLE) {
-                            navigation.visibility = View.VISIBLE
-                        }
-                        navigation.selectedItemId = R.id.popular
-                    }
                     BaseFragment.LIST -> {
                         if (navigation.visibility == View.INVISIBLE) {
                             navigation.visibility = View.VISIBLE
                         }
                         navigation.selectedItemId = R.id.list
 
+                    }
+                    BaseFragment.MYRECIPES -> {
+                        if(navigation.visibility == View.INVISIBLE){
+                            navigation.visibility = View.VISIBLE
+                        }
+                        navigation.selectedItemId = R.id.myRecipe
                     }
                     BaseFragment.LEFTOVERS -> {
                         if (navigation.visibility == View.INVISIBLE) {
@@ -112,6 +108,9 @@ class MainActivity : AppCompatActivity(),
                 }
             }
         })
+        backbutton.setOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun onStop() {
@@ -119,7 +118,7 @@ class MainActivity : AppCompatActivity(),
         navigation.setOnNavigationItemReselectedListener(null)
     }
 
-    override fun popularClicked() {
+    override fun myRecipesClicked() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
@@ -131,30 +130,63 @@ class MainActivity : AppCompatActivity(),
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun recipeClicked() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun recipeClicked(recipe: Recipe) {
+        bookmark.visibility = View.GONE
+        like.visibility = View.GONE
+        share.visibility = View.GONE
+        appName.text = getString(R.string.ingredients)
+        appName.visibility = View.VISIBLE
+
+        supportFragmentManager.beginTransaction().add(R.id.frame, IngredientListFragment.newInstance(recipe), "ingredientList").addToBackStack("recipe").commit()
     }
 
     override fun listClicked(recipe: Recipe) {
+        recipe.views += 1
+        frame.visibility = View.VISIBLE
         viewpager_main.visibility = View.GONE
         navigation.visibility = View.GONE
-        supportFragmentManager.beginTransaction().add(R.id.frame,RecipeFragment.newInstance(recipe), "recipe").addToBackStack("activity").commit()
+        bookmark.visibility = View.VISIBLE
+        like.visibility = View.VISIBLE
+        share.visibility = View.VISIBLE
+        supportFragmentManager.beginTransaction().replace(R.id.frame,RecipeFragment.newInstance(recipe), "recipe").commit()
+        backbutton.visibility = View.VISIBLE
+        logo.visibility = View.GONE
+        appName.visibility = View.GONE
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && event!!.repeatCount <= 0) {
-            Log.d("CDA", "onKeyDown Called");
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && event!!.repeatCount <= 0 && viewpager_main.visibility==View.GONE) {
+            Log.d("CDA", "onKeyDown Called")
             onBackPressed()
             return true
+        } else {
+            super.finish()
         }
-        return super.onKeyDown(keyCode, event);
+        return super.onKeyDown(keyCode, event)
     }
 
     override fun onBackPressed() {
         Log.d("CDA", "onBackPressed Called")
-        frame.removeAllViews()
-        viewpager_main.visibility = View.VISIBLE
-        navigation.visibility = View.VISIBLE
+        supportFragmentManager.popBackStack()
+        var recipeFragment = supportFragmentManager.findFragmentByTag("recipe")
+        if(recipeFragment != null && recipeFragment.isVisible){
+            appName.visibility = View.GONE
+            bookmark.visibility = View.VISIBLE
+            like.visibility = View.VISIBLE
+            share.visibility = View.VISIBLE
+        }
+        if(!(supportFragmentManager.backStackEntryCount > 0)){
+            frame.visibility = View.GONE
+            viewpager_main.visibility = View.VISIBLE
+            navigation.visibility = View.VISIBLE
+            bookmark.visibility = View.GONE
+            like.visibility = View.GONE
+            share.visibility = View.GONE
+            backbutton.visibility = View.GONE
+            logo.visibility = View.VISIBLE
+            appName.text = getString(R.string.app_name)
+            appName.visibility = View.VISIBLE
+        }
     }
 
 }
