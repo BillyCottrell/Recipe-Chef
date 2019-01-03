@@ -3,13 +3,15 @@
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
-             tools:context=".fragments.PopularFragment"
->
+             tools:context=".fragments.PreparationListFragment"
+             android:background="@android:color/white">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ExpandableListView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="popular"/>
+            android:id="@+id/preparationList"
+            android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+            android:divider="@android:color/darker_gray"
+            android:dividerHeight="0.5dp"/>
 
 </FrameLayout>

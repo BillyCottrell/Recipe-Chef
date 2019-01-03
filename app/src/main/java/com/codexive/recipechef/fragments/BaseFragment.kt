@@ -6,8 +6,8 @@ open class BaseFragment : Fragment(){
     open var TAG: String = ""
 
     companion object {
-        const val POPULAR = 0
-        const val LIST = 1
+        const val LIST = 0
+        const val MYRECIPES = 1
         const val LEFTOVERS = 2
         const val ACCOUNT = 3
     }

@@ -11,7 +11,7 @@ import com.codexive.recipechef.utils.RecyclerViewClickListener
 class RecipeHolder(itemView: View, listener: RecyclerViewClickListener) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
     private val itemListener: RecyclerViewClickListener
     private val imgRecipe: ImageButton
-    private val txtNaam: TextView
+    private val txtName: TextView
 
     private lateinit var recipe: Recipe
 
@@ -19,12 +19,12 @@ class RecipeHolder(itemView: View, listener: RecyclerViewClickListener) : Recycl
         super.itemView
         itemListener = listener
         imgRecipe = itemView.findViewById(R.id.recipeImagebtn)
-        txtNaam = itemView.findViewById(R.id.txtNaam)
+        txtName = itemView.findViewById(R.id.txtName)
         itemView.setOnClickListener(this)
     }
     fun setDetails(recipe: Recipe){
         this.recipe = recipe
-        txtNaam.text = recipe.naam
+        txtName.text = recipe.name
         imgRecipe.setImageResource(imgRecipe.resources.getIdentifier("keldermanlunch1", "drawable", "com.codexive.recipechef"))
     }
 

@@ -20,7 +20,7 @@ import kotlinx.android.synthetic.main.fragment_recipe.*
  * create an instance of this fragment.
  *
  */
-class RecipeFragment : BaseFragment() {
+class RecipeFragment : Fragment() {
 
     private var recipe: Recipe? = null
     private var listener: OnFragmentInteractionListener? = null
@@ -40,24 +40,25 @@ class RecipeFragment : BaseFragment() {
         return inflater.inflate(R.layout.fragment_recipe, container, false)
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.recipeClicked()
-    }
-
     override fun onStart() {
         super.onStart()
         recipeImage.setImageResource(recipeImage.resources.getIdentifier("keldermanlunch1", "drawable", "com.codexive.recipechef"))
-        txtNaam.text = recipe?.naam
-        txtPreparationTime.text = String.format("%duur %dmin",recipe!!.bereidingstijd / 60, recipe!!.bereidingstijd % 60)
-        txtBeschrijving.text = recipe?.beschrijving
+        txtName.text = recipe!!.name
+        txtPreparationTime.text = String.format("%d uur %d min",recipe!!.preparationTime / 60, recipe!!.preparationTime % 60)
+        txtDescription.text = recipe!!.description
+        txtServings.text = String.format("%d",recipe!!.servings)
+        recipeIngredients.setOnClickListener{
+            listener?.ingredientClicked(recipe!!)
+        }
+        recipePreparationMethod.setOnClickListener{
+            listener?.preparationMethodClicked(recipe!!)
+        }
     }
 
 
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        TAG = "RecipeFragment"
         if (context is OnFragmentInteractionListener) {
             listener = context
         } else {
@@ -82,14 +83,15 @@ class RecipeFragment : BaseFragment() {
      * for more information.
      */
     interface OnFragmentInteractionListener {
-        fun recipeClicked()
+        fun ingredientClicked(recipe: Recipe)
+        fun preparationMethodClicked(recipe: Recipe)
     }
 
     companion object {
         /**
          * Use this factory method to create a new instance of
          * this fragment using the provided parameters.
-         * @return A new instance of fragment PopularFragment.
+         * @return A new instance of fragment RecipeFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic

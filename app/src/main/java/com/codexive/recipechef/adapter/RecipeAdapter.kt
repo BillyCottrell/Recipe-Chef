@@ -10,7 +10,6 @@ import com.codexive.recipechef.model.Recipe
 import com.codexive.recipechef.utils.RecyclerViewClickListener
 
 class RecipeAdapter(private val context:Context, private val recipes: ArrayList<Recipe>, private val recipeListener: RecyclerViewClickListener) : RecyclerView.Adapter<RecipeHolder>(){
-    private lateinit var holder: RecipeHolder
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.recipe_list_item,parent, false)
         return RecipeHolder(view, recipeListener)
@@ -20,7 +19,7 @@ class RecipeAdapter(private val context:Context, private val recipes: ArrayList<
     }
 
     override fun onBindViewHolder(holder: RecipeHolder, position: Int) {
-        val recipe: Recipe = this.recipes.get(position)
+        val recipe: Recipe = this.recipes[position]
         holder.setDetails(recipe)
     }
 }
