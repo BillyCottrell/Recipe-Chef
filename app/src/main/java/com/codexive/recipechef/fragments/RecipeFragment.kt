@@ -48,7 +48,10 @@ class RecipeFragment : Fragment() {
         txtDescription.text = recipe!!.description
         txtServings.text = String.format("%d",recipe!!.servings)
         recipeIngredients.setOnClickListener{
-            listener?.recipeClicked(recipe!!)
+            listener?.ingredientClicked(recipe!!)
+        }
+        recipePreparationMethod.setOnClickListener{
+            listener?.preparationMethodClicked(recipe!!)
         }
     }
 
@@ -80,7 +83,8 @@ class RecipeFragment : Fragment() {
      * for more information.
      */
     interface OnFragmentInteractionListener {
-        fun recipeClicked(recipe: Recipe)
+        fun ingredientClicked(recipe: Recipe)
+        fun preparationMethodClicked(recipe: Recipe)
     }
 
     companion object {

@@ -40,7 +40,7 @@ class MainActivity : AppCompatActivity(),
                     viewpager_main.setCurrentItem(BaseFragment.LIST, false)
                     true
                 }
-                R.id.myRecipe ->{
+                R.id.myRecipes ->{
                     viewpager_main.setCurrentItem(BaseFragment.MYRECIPES, false)
                     true
                 }
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity(),
                         if(navigation.visibility == View.INVISIBLE){
                             navigation.visibility = View.VISIBLE
                         }
-                        navigation.selectedItemId = R.id.myRecipe
+                        navigation.selectedItemId = R.id.myRecipes
                     }
                     BaseFragment.LEFTOVERS -> {
                         if (navigation.visibility == View.INVISIBLE) {
@@ -130,7 +130,7 @@ class MainActivity : AppCompatActivity(),
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override fun recipeClicked(recipe: Recipe) {
+    override fun ingredientClicked(recipe: Recipe) {
         bookmark.visibility = View.GONE
         like.visibility = View.GONE
         share.visibility = View.GONE
@@ -140,7 +140,17 @@ class MainActivity : AppCompatActivity(),
         supportFragmentManager.beginTransaction().add(R.id.frame, IngredientListFragment.newInstance(recipe), "ingredientList").addToBackStack("recipe").commit()
     }
 
-    override fun listClicked(recipe: Recipe) {
+    override fun preparationMethodClicked(recipe: Recipe) {
+        bookmark.visibility = View.GONE
+        like.visibility = View.GONE
+        share.visibility = View.GONE
+        appName.text = getString(R.string.preparationMethod)
+        appName.visibility = View.VISIBLE
+
+        supportFragmentManager.beginTransaction().add(R.id.frame, PreparationListFragment.newInstance(recipe), "preparationList").addToBackStack("recipe").commit()
+    }
+
+    override fun recipeClicked(recipe: Recipe) {
         recipe.views += 1
         frame.visibility = View.VISIBLE
         viewpager_main.visibility = View.GONE
@@ -168,7 +178,7 @@ class MainActivity : AppCompatActivity(),
     override fun onBackPressed() {
         Log.d("CDA", "onBackPressed Called")
         supportFragmentManager.popBackStack()
-        var recipeFragment = supportFragmentManager.findFragmentByTag("recipe")
+        val recipeFragment = supportFragmentManager.findFragmentByTag("recipe")
         if(recipeFragment != null && recipeFragment.isVisible){
             appName.visibility = View.GONE
             bookmark.visibility = View.VISIBLE

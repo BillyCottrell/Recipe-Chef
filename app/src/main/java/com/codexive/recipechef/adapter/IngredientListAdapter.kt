@@ -1,7 +1,6 @@
 package com.codexive.recipechef.adapter
 
 import android.content.Context
-import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,16 +8,19 @@ import android.widget.BaseExpandableListAdapter
 import android.widget.TextView
 import com.codexive.recipechef.R
 import com.codexive.recipechef.model.Ingredient
-import org.w3c.dom.Text
 
-class IngredientListAdapter(private var context: Context, private var listDataGroup : ArrayList<String>, private var listDataChild : HashMap<String, ArrayList<Ingredient>>) : BaseExpandableListAdapter() {
+class IngredientListAdapter(
+    private var context: Context,
+    private var listDataGroup : ArrayList<String>,
+    private var listDataChild : HashMap<String, ArrayList<Ingredient>>) :
+    BaseExpandableListAdapter() {
 
     override fun getGroup(groupPosition: Int): Any {
         return this.listDataGroup[groupPosition]
     }
 
     override fun isChildSelectable(groupPosition: Int, childPosition: Int): Boolean {
-        return true
+        return false
     }
 
     override fun hasStableIds(): Boolean {

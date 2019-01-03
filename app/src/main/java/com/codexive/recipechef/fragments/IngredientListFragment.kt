@@ -1,7 +1,5 @@
 package com.codexive.recipechef.fragments
 
-import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -12,8 +10,6 @@ import com.codexive.recipechef.R
 import com.codexive.recipechef.adapter.IngredientListAdapter
 import com.codexive.recipechef.model.Ingredient
 import com.codexive.recipechef.model.Recipe
-import kotlinx.android.synthetic.main.fragment_ingredient_list.*
-import kotlinx.android.synthetic.main.fragment_recipe.*
 
 /**
  * A simple [Fragment] subclass.

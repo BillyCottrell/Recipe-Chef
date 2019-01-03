@@ -7,10 +7,11 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="my_recipe">My Recipe</string>
+    <string name="my_recipes">My Recipes</string>
     <string name="recipe">Recipe</string>
     <string name="logo_recipechef">logo recipechef</string>
     <string name="terugknop">terugknop</string>
     <string name="get_ideas">Get Ideas</string>
     <string name="ingredients">Ingredients</string>
+    <string name="preparationMethod">Preparation Method</string>
 </resources>

@@ -208,7 +208,7 @@ class RecipeListFragment : Fragment(), RecyclerViewClickListener{
     }
 
     override fun recyclerViewListClicked(recipe: Recipe) {
-        listener?.listClicked(recipe)
+        listener?.recipeClicked(recipe)
     }
 
     /**
@@ -223,7 +223,7 @@ class RecipeListFragment : Fragment(), RecyclerViewClickListener{
      * for more information.
      */
     interface OnFragmentInteractionListener {
-        fun listClicked(recipe: Recipe)
+        fun recipeClicked(recipe: Recipe)
     }
 
     companion object {
