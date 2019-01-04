@@ -9,7 +9,13 @@ import com.codexive.recipechef.holder.RecipeHolder
 import com.codexive.recipechef.model.Recipe
 import com.codexive.recipechef.utils.RecyclerViewClickListener
 
-class RecipeAdapter(private val context:Context, private val recipes: ArrayList<Recipe>, private val recipeListener: RecyclerViewClickListener) : RecyclerView.Adapter<RecipeHolder>(){
+class RecipeAdapter(private val context:Context, private var recipes: ArrayList<Recipe>, private val recipeListener: RecyclerViewClickListener) : RecyclerView.Adapter<RecipeHolder>(){
+
+    internal fun setRecipes(recipes:ArrayList<Recipe>){
+        this.recipes = recipes
+        notifyDataSetChanged()
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecipeHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.recipe_list_item,parent, false)
         return RecipeHolder(view, recipeListener)

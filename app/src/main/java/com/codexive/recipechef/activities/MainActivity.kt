@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity(),
     MyRecipesFragment.OnFragmentInteractionListener{
 
     //private val database = FirebaseDatabase.getInstance()
-    private var recipe: Recipe?=null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

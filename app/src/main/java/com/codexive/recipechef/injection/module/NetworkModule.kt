@@ -1,24 +1,26 @@
-/*package com.codexive.recipechef.injection.module
+package com.codexive.recipechef.injection.module
 
-import com.codexive.recipechef.network.RecipeAPI
-import com.codexive.recipechef.utils.BASE_URL
+/*import com.codexive.recipechef.network.RecipeAPI
+import com.codexive.recipechef.utils.BASE_URL*/
+import android.content.Context
+import com.google.firebase.FirebaseApp
+import com.google.firebase.database.FirebaseDatabase
 import dagger.Module
 import dagger.Provides
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
 import javax.inject.Singleton
 
 @Module
 object NetworkModule {
-    @Provides
+    /*@Provides
     @Singleton
     internal fun provideRecipeAPI(retrofit: Retrofit): RecipeAPI {
         return retrofit.create(RecipeAPI::class.java)
-    }
+    }*/
 
 
     /**
@@ -31,7 +33,7 @@ object NetworkModule {
      * The function paramaters are interfaces, not the types of the specific kind of factories.
      * This allows us to easily swap out different kind of factories.
      */
-    @Provides
+    /*@Provides
     @Singleton
     internal fun provideRetrofitInterface(okHttpClient: OkHttpClient,
                                           converterFactory: retrofit2.Converter.Factory,
@@ -42,6 +44,12 @@ object NetworkModule {
             .addConverterFactory(converterFactory)
             .addCallAdapterFactory(callAdapterFactory)
             .build()
+    }*/
+
+    @Provides
+    @Singleton
+    internal fun provideFirebaseDatabase() : FirebaseDatabase{
+        return FirebaseDatabase.getInstance()
     }
 
     /**
@@ -84,4 +92,4 @@ object NetworkModule {
     internal fun provideCallAdapterFactory(): retrofit2.CallAdapter.Factory {
         return RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io())
     }
-}*/
+}

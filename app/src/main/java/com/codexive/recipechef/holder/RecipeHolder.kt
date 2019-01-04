@@ -29,7 +29,7 @@ class RecipeHolder(itemView: View, listener: RecyclerViewClickListener) : Recycl
     }
 
     override fun onClick(v: View) {
-        itemListener.recyclerViewListClicked(recipe)
+        //itemListener.recyclerViewListClicked(recipe)
     }
 
 }

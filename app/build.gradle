@@ -109,3 +109,5 @@ dependencies {
     //Logger functionality with beautifull logging : https://github.com/orhanobut/logger
     implementation 'com.orhanobut:logger:2.2.0'
 }
+
+apply plugin: 'com.google.gms.google-services'

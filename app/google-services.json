@@ -42,6 +42,13 @@
             {
               "client_id": "811213499103-r2vi3km22d6t5n72k6ogfigdk15hpnp6.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "811213499103-ccm90kc46taqdmq8jqq3ntkf9umhi7ec.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.codexive.recipechef"
+              }
             }
           ]
         },

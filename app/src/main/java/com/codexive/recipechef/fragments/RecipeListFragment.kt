@@ -1,6 +1,9 @@
 package com.codexive.recipechef.fragments
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -11,9 +14,12 @@ import android.view.ViewGroup
 
 import com.codexive.recipechef.R
 import com.codexive.recipechef.adapter.RecipeAdapter
+import com.codexive.recipechef.databinding.FragmentRecipeListBinding
 import com.codexive.recipechef.model.Ingredient
 import com.codexive.recipechef.model.Recipe
+import com.codexive.recipechef.ui.RecipeViewModel
 import com.codexive.recipechef.utils.RecyclerViewClickListener
+import com.google.firebase.FirebaseApp
 
 /**
  * A simple [Fragment] subclass.
@@ -30,17 +36,29 @@ class RecipeListFragment : Fragment(), RecyclerViewClickListener{
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: RecipeAdapter
     private lateinit var recipeArrayList: ArrayList<Recipe>
+    private lateinit var viewModel: RecipeViewModel
+    private lateinit var binding: FragmentRecipeListBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProviders.of(activity!!).get(RecipeViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_recipe_list, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_recipe_list, container, false)
+        //val view = inflater.inflate(R.layout.fragment_recipe_list, container, false)
+        val rootView = binding.root
+        binding.recViewModel = viewModel
+        binding.setLifecycleOwner(activity)
         // get view from inside the fragment
-        recyclerView = view.findViewById<RecyclerView>(R.id.recList)
+        recyclerView = rootView.findViewById(R.id.recList)
         // put its layout on Linearlayout and give the context with it
         recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
+        recyclerView.setItemViewCacheSize(4)
         // make an empty arraylist of recipes
         recipeArrayList = arrayListOf()
         // make a new recipe_list_item adapter with the context, arraylist and itemlistener
@@ -48,12 +66,26 @@ class RecipeListFragment : Fragment(), RecyclerViewClickListener{
         // set the recyclerView its adapter
         recyclerView.adapter = adapter
         // create the recipes
-        createListData()
+        getAllRecipes()
+        adapter.notifyDataSetChanged()
+        if(recipeArrayList.isEmpty()){
 
-        return view
+        }
+        return rootView
     }
 
-    private fun createListData() {
+    private fun getAllRecipes(){
+        val changeObserver = Observer<ArrayList<Recipe>>{ value ->
+            value?.let {
+                recipeArrayList = it
+                adapter.setRecipes(recipeArrayList)
+            }
+        }
+        viewModel.recipeList.observe(this ,changeObserver)
+    }
+
+
+    /*private fun createListData() {
         recipeArrayList.add(
             Recipe(
                 "Bourbon and Brown Sugar Flank Steak",
@@ -191,7 +223,7 @@ class RecipeListFragment : Fragment(), RecyclerViewClickListener{
         )
         // if all recipes are made then notify the adapter that the data has changed
         adapter.notifyDataSetChanged()
-    }
+    }*/
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
