@@ -2,6 +2,8 @@ package com.codexive.recipechef.ui
 
 import android.arch.lifecycle.MutableLiveData
 import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import com.codexive.recipechef.base.InjectedViewModel
 import com.codexive.recipechef.model.Recipe
 import com.google.firebase.auth.FirebaseAuth
@@ -24,7 +26,9 @@ class RecipeViewModel : InjectedViewModel(){
         getData()
     }
     fun getData(){
+        instance.setPersistenceEnabled(true)
         val recipeRef = instance.getReference("recipes")
+        recipeRef.keepSynced(true)
         val recipeListener = object : ChildEventListener {
             override fun onCancelled(p0: DatabaseError) {
             }

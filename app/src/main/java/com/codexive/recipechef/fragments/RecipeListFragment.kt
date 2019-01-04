@@ -1,9 +1,11 @@
 package com.codexive.recipechef.fragments
 
+import android.app.AlertDialog
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.databinding.DataBindingUtil
+import android.net.ConnectivityManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -15,11 +17,9 @@ import android.view.ViewGroup
 import com.codexive.recipechef.R
 import com.codexive.recipechef.adapter.RecipeAdapter
 import com.codexive.recipechef.databinding.FragmentRecipeListBinding
-import com.codexive.recipechef.model.Ingredient
 import com.codexive.recipechef.model.Recipe
 import com.codexive.recipechef.ui.RecipeViewModel
 import com.codexive.recipechef.utils.RecyclerViewClickListener
-import com.google.firebase.FirebaseApp
 
 /**
  * A simple [Fragment] subclass.
@@ -74,6 +74,11 @@ class RecipeListFragment : Fragment(), RecyclerViewClickListener{
         return rootView
     }
 
+    override fun onStart() {
+        super.onStart()
+        isNetworkAvailable(requireContext())
+    }
+
     private fun getAllRecipes(){
         val changeObserver = Observer<ArrayList<Recipe>>{ value ->
             value?.let {
@@ -84,6 +89,18 @@ class RecipeListFragment : Fragment(), RecyclerViewClickListener{
         viewModel.recipeList.observe(this ,changeObserver)
     }
 
+    private fun isNetworkAvailable(context: Context): Boolean {
+        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetworkInfo = cm.activeNetworkInfo
+        if(activeNetworkInfo != null && activeNetworkInfo.isConnected){
+            return true
+        }
+        AlertDialog.Builder(this.requireContext()).setTitle("Geen internet verbinding")
+            .setMessage("Hierdoor kunnen niet alle gegevens getoond worden.\nIndien u dit niet wenst gelieve dan uw internet verbinding aan te zetten")
+            .setPositiveButton(android.R.string.ok) { _, _ -> }
+            .setIcon(android.R.drawable.ic_dialog_alert).show()
+        return false
+    }
 
     /*private fun createListData() {
         recipeArrayList.add(
