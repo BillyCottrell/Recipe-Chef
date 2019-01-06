@@ -9,6 +9,5 @@ open class BaseFragment : Fragment(){
         const val LIST = 0
         const val MYRECIPES = 1
         const val LEFTOVERS = 2
-        const val ACCOUNT = 3
     }
 }

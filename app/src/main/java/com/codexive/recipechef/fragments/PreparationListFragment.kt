@@ -77,7 +77,7 @@ class PreparationListFragment : Fragment() {
     }*/
 
     private fun initListData(){
-        val preparationMethod : Array<String> = recipe!!.preparationMethod
+        val preparationMethod : ArrayList<String> = recipe!!.preparationMethod
         preparationMethod.forEach {
             val step = String.format("Step %s",listDataGroup!!.size+1)
             listDataGroup!!.add(step)

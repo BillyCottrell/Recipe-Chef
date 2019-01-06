@@ -1,24 +1,19 @@
 package com.codexive.recipechef.ui
 
 import android.arch.lifecycle.MutableLiveData
-import android.content.Context
-import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import com.codexive.recipechef.base.InjectedViewModel
 import com.codexive.recipechef.model.Recipe
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import javax.inject.Inject
 
+
+
 class RecipeViewModel : InjectedViewModel(){
     @Inject
     lateinit var instance: FirebaseDatabase
-
-    /*@Inject
-    lateinit var firebaseAuth: FirebaseAuth*/
 
     var recipeList: MutableLiveData<ArrayList<Recipe>> = MutableLiveData()
     var recipes:ArrayList<Recipe> = arrayListOf()
@@ -26,7 +21,6 @@ class RecipeViewModel : InjectedViewModel(){
         getData()
     }
     fun getData(){
-        instance.setPersistenceEnabled(true)
         val recipeRef = instance.getReference("recipes")
         recipeRef.keepSynced(true)
         val recipeListener = object : ChildEventListener {
@@ -55,9 +49,15 @@ class RecipeViewModel : InjectedViewModel(){
         recipeRef.addChildEventListener(recipeListener)
     }
     fun addRecipe(recipe:Recipe){
-        val ref = instance.getReference("recipes")
+        val ref = instance.reference.child("recipes")
         val key = ref.push().key
         recipe.id = key.toString()
-        ref.child(recipe.id!!).setValue(recipe)
+        ref.child(key.toString()).setValue(recipe)
+    }
+    fun updateRecipe(recipe:Recipe){
+        val ref = instance.reference.child("recipes").child(recipe.id!!)
+        val recipeUpdates = HashMap<String, Any>()
+        recipeUpdates["views"] = recipe.views
+        ref.updateChildren(recipeUpdates)
     }
 }

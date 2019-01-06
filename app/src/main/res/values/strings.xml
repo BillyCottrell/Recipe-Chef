@@ -1,17 +1,50 @@
 <resources>
-    <string name="app_name">Recipe Chef</string>
-    <string name="account">Account</string>
-    <string name="popular">Popular</string>
+    <string name="app_name" translatable="false">Recipe Chef</string>
     <string name="use_leftovers">Use Up Leftovers</string>
     <string name="all_recipes">All Recipes</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="my_recipes">My Recipes</string>
     <string name="recipe">Recipe</string>
-    <string name="logo_recipechef">logo recipechef</string>
-    <string name="terugknop">terugknop</string>
+    <string name="logo_recipechef" translatable="false">logo recipechef</string>
+    <string name="back_button">back button</string>
     <string name="get_ideas">Get Ideas</string>
-    <string name="ingredients">Ingredients</string>
     <string name="preparationMethod">Preparation Method</string>
+    <string name="addRecipe">Add Recipe</string>
+    <string name="recept_naam">Name*</string>
+    <string name="recept_aantalpersonen">Servings*</string>
+    <string name="recept_bereidingstijd">Preparation time*</string>
+    <string name="upload" translatable="false">Upload</string>
+    <string name="url_afbeelding">Url Image*</string>
+    <string name="recept_bereidingsminuut">minute</string>
+    <string name="recept_beschrijving">Description*</string>
+    <string name="recept_bereidingsuur">hour</string>
+    <string name="add_ingredient">Add Ingredient</string>
+    <string name="ingredient_quantity">Quantity</string>
+    <string name="ingredient_measurement">Measurement</string>
+    <string name="ingredient_name">Name*</string>
+    <string name="add_preparationmethod">Add PreparationMethod</string>
+    <string name="preparationmethod">Preparation Method</string>
+    <string name="recipe_info">Recipe Info</string>
+    <string name="preparation_time">Preparation Time</string>
+    <string name="add_recipe">Add Recipe</string>
+    <string name="preparationtime">Preparation Time:</string>
+    <string name="servings">Servings:</string>
+    <string name="beschrijving">Description:</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="preparation_method">Preparation Method</string>
+    <string name="cancel">Cancel</string>
+    <string name="ingredient_notes">Short Notes</string>
+    <string name="ingredient_category">Ingredient Group (Category)</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="preparation_method_description">Description Preparation Step</string>
+    <string name="add_preparation_method">Add Preparation Method</string>
+    <string name="empty_name_error">Fill in recipe name</string>
+    <string name="empty_description_error">Fill in recipe description</string>
+    <string name="empty_servings_error">Fill in recipe servings</string>
+    <string name="empty_image_error">Fill in recipe image</string>
+    <string name="no_ingredients_error">Add ingredients</string>
+    <string name="no_preparationmethod_error">Add Preparation Method</string>
+    <string name="preparationTime_error">Preparationtime should be at least 5min</string>
 </resources>

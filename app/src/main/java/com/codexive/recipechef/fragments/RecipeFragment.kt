@@ -1,7 +1,6 @@
 package com.codexive.recipechef.fragments
 
 import android.content.Context
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -9,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.codexive.recipechef.R
 import com.codexive.recipechef.model.Recipe
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_recipe.*
+
 
 /**
  * A simple [Fragment] subclass.
@@ -42,7 +43,17 @@ class RecipeFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        recipeImage.setImageResource(recipeImage.resources.getIdentifier("keldermanlunch1", "drawable", "com.codexive.recipechef"))
+        /*val client = OkHttpClient()
+        client.protocols(Arrays.asList())*/
+        /*client.setProtocols(Arrays.asList(Protocol.HTTP_11))
+        val picasso = Picasso.Builder(context)
+            .downloader(OkDownloader(client))
+            .build()*/
+
+        //CustomPicasso.with(this.context!!).load(recipe!!.image).into(recipeImage)
+
+        Picasso.get().load(recipe!!.image).into(recipeImage)
+        //recipeImage.setImageResource(recipeImage.resources.getIdentifier("keldermanlunch1", "drawable", "com.codexive.recipechef"))
         txtName.text = recipe!!.name
         txtPreparationTime.text = String.format("%d uur %d min",recipe!!.preparationTime / 60, recipe!!.preparationTime % 60)
         txtDescription.text = recipe!!.description
