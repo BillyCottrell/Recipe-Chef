@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="use_leftovers">Gebruik Restjes</string>
+    <string name="all_recipes">Alle Recepten</string>
+    <string name="my_recipes">Mijn Recepten</string>
+    <string name="recipe">Recept</string>
+    <string name="back_button">terug knop</string>
+    <string name="get_ideas">Krijg Ideeën</string>
+    <string name="preparationMethod">Bereidingswijze</string>
+    <string name="addRecipe">Recept toevoegen</string>
+    <string name="recept_naam">Naam*</string>
+    <string name="recept_beschrijving">Beschrijving*</string>
+    <string name="recept_aantalpersonen">AantalPersonen*</string>
+    <string name="recept_bereidingstijd">Bereidingstijd*</string>
+    <string name="url_afbeelding">Url Afbeelding*</string>
+    <string name="recept_bereidingsuur">uur</string>
+    <string name="recept_bereidingsminuut">minuut</string>
+    <string name="ingredients">Ingredienten</string>
+    <string name="add_ingredient">Ingredienten Toevoegen</string>
+    <string name="ingredient_quantity">Hoeveelheid</string>
+    <string name="ingredient_measurement">Meeteenheid</string>
+    <string name="add_preparationmethod">Bereidingswijze Toevoegen</string>
+    <string name="ingredient_name">Naam</string>
+    <string name="preparationmethod">Bereidingswijze</string>
+    <string name="recipe_info">Info Recept</string>
+    <string name="preparation_time">Bereidingstijd</string>
+    <string name="add_recipe">Recept Toevoegen</string>
+    <string name="preparationtime">Bereidingstijd:</string>
+    <string name="servings">AantalPersonen:</string>
+    <string name="beschrijving">Beschrijving:</string>
+    <string name="preparation_method">Bereidingswijze:</string>
+    <string name="cancel">Annuleer</string>
+    <string name="ingredient_notes">Korte Notities</string>
+    <string name="ingredient_category">Ingredienten Groep (Categorie)</string>
+    <string name="preparation_method_description">Beschrijving Bereidingswijze</string>
+    <string name="add_preparation_method">Toevoegen Bereidingswijze</string>
+    <string name="empty_description_error">Vul de beschrijving van het recept in</string>
+    <string name="empty_servings_error">Vul het aantal personen in</string>
+    <string name="empty_image_error">Vul de url van de afbeelding in</string>
+    <string name="empty_name_error">Vul de naam van het recept in</string>
+</resources>

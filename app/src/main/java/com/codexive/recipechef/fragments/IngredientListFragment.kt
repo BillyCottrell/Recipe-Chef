@@ -55,11 +55,6 @@ class IngredientListFragment : Fragment() {
         return view
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    /*fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
-    }*/
-
     /*override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
@@ -75,7 +70,7 @@ class IngredientListFragment : Fragment() {
     }*/
 
     private fun initListData() {
-        val ingredients : Array<Ingredient> = recipe!!.ingredients
+        val ingredients : ArrayList<Ingredient> = recipe!!.ingredients
         ingredients.forEach {
             if(!(listDataGroup!!.contains(it.category))){
                 listDataGroup!!.add(it.category)

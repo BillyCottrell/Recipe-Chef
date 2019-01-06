@@ -17,6 +17,7 @@ import android.view.ViewGroup
 import com.codexive.recipechef.R
 import com.codexive.recipechef.adapter.RecipeAdapter
 import com.codexive.recipechef.databinding.FragmentRecipeListBinding
+import com.codexive.recipechef.model.Ingredient
 import com.codexive.recipechef.model.Recipe
 import com.codexive.recipechef.ui.RecipeViewModel
 import com.codexive.recipechef.utils.RecyclerViewClickListener
@@ -30,7 +31,7 @@ import com.codexive.recipechef.utils.RecyclerViewClickListener
  * create an instance of this fragment.
  *
  */
-class RecipeListFragment : Fragment(), RecyclerViewClickListener{
+class RecipeListFragment : Fragment(), RecyclerViewClickListener {
 
     private var listener: OnFragmentInteractionListener? = null
     private lateinit var recyclerView: RecyclerView
@@ -68,9 +69,7 @@ class RecipeListFragment : Fragment(), RecyclerViewClickListener{
         // create the recipes
         getAllRecipes()
         adapter.notifyDataSetChanged()
-        if(recipeArrayList.isEmpty()){
 
-        }
         return rootView
     }
 
@@ -79,20 +78,20 @@ class RecipeListFragment : Fragment(), RecyclerViewClickListener{
         isNetworkAvailable(requireContext())
     }
 
-    private fun getAllRecipes(){
-        val changeObserver = Observer<ArrayList<Recipe>>{ value ->
+    private fun getAllRecipes() {
+        val changeObserver = Observer<ArrayList<Recipe>> { value ->
             value?.let {
                 recipeArrayList = it
                 adapter.setRecipes(recipeArrayList)
             }
         }
-        viewModel.recipeList.observe(this ,changeObserver)
+        viewModel.recipeList.observe(this, changeObserver)
     }
 
     private fun isNetworkAvailable(context: Context): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetworkInfo = cm.activeNetworkInfo
-        if(activeNetworkInfo != null && activeNetworkInfo.isConnected){
+        if (activeNetworkInfo != null && activeNetworkInfo.isConnected) {
             return true
         }
         AlertDialog.Builder(this.requireContext()).setTitle("Geen internet verbinding")
@@ -101,146 +100,6 @@ class RecipeListFragment : Fragment(), RecyclerViewClickListener{
             .setIcon(android.R.drawable.ic_dialog_alert).show()
         return false
     }
-
-    /*private fun createListData() {
-        recipeArrayList.add(
-            Recipe(
-                "Bourbon and Brown Sugar Flank Steak",
-                false,
-                "Marinate budget-friendly flank steak in a sweet and tangy bourbon sauce, then grill until done.  Serve with the homemade garlic-chive mashed potatoes and a mixed green salad.",
-                6,
-                "Fishbook",
-                arrayOf(
-                    Ingredient(
-                        "packed dark brown sugar",
-                        "Steak and marinade",
-                        "1/4",
-                        "cup"
-                    ),
-                    Ingredient(
-                        "Minced green onions",
-                        "Steak and marinade",
-                        "1/4",
-                        "cup"
-                    ),
-                    Ingredient(
-                        "Bourbon",
-                        "Steak and marinade",
-                        "1/4",
-                        "cup"
-                    ),
-                    Ingredient(
-                        "low-sodium soy sauce",
-                        "Steak and marinade",
-                        "1/4",
-                        "cup"
-                    ),
-                    Ingredient(
-                        "Dijon mustard",
-                        "Steak and marinade",
-                        "1/4",
-                        "cup"
-                    ),
-                    Ingredient(
-                        "Freshly ground pepper",
-                        "Steak and marinade",
-                        "1/2",
-                        "teaspoon"
-                    ),
-                    Ingredient(
-                        "Worcestershire sauce",
-                        "Steak and marinade",
-                        "1/4",
-                        "teaspoon"
-                    ),
-                    Ingredient(
-                        "Flank Steak",
-                        "Steak and marinade",
-                        "2",
-                        "pounds",
-                        "trimmed"
-                    ),
-                    Ingredient(
-                        "Non-Stick cooking spray",
-                        "Steak and marinade"
-                    ),
-                    Ingredient(
-                        "Cornstarch",
-                        "Steak and marinade",
-                        "1/2",
-                        "teaspoon"
-                    ),
-                    Ingredient(
-                        "small red potatoes",
-                        "Potatoes",
-                        "3",
-                        "pounds"
-                    ),
-                    Ingredient(
-                        "garlic cloves",
-                        "Potatoes",
-                        "6",
-                        notes = "peeled"
-                    ),
-                    Ingredient(
-                        "reduced-fat sour cream",
-                        "Potatoes",
-                        "1/2",
-                        "cup"
-                    ),
-                    Ingredient(
-                        "2% reduced-fat milk",
-                        "Potatoes",
-                        "1/3",
-                        "cup"
-                    ),
-                    Ingredient(
-                        "butter",
-                        "Potatoes",
-                        "2 1/2",
-                        "tablespoons"
-                    ),
-                    Ingredient(
-                        "salt",
-                        "Potatoes",
-                        "1",
-                        "teaspoon"
-                    ),
-                    Ingredient(
-                        "freshly ground pepper",
-                        "Potatoes",
-                        "1/4",
-                        "teaspoon"
-                    ),
-                    Ingredient(
-                        "chopped fresh chives",
-                        "Potatoes",
-                        "1/4",
-                        "cup"
-                    ),
-                    Ingredient(
-                        "Fresh chives",
-                        "Potatoes",
-                        "1",
-                        "bunch",
-                        "Garnish, cut into 1 inch pieces"
-                    )
-                ),
-                510,
-                arrayOf(
-                    "To prepare steak, combine first 7 ingredients in a large zip-top plastic bag; add steak. Seal and marinate in refrigerator 8 hours or overnight, turning bag occasionally. Remove steak from bag, reserving marinade.",
-                    "Prepare grill.",
-                    "Place steak on grill rack coated with cooking spray; grill 5 minutes on each side or until desired degree of doneness. Let stand 10 minutes. Cut diagonally across grain into thin slices.",
-                    "Combine reserved marinade and cornstarch in a saucepan. Bring to a boil; cook 1 minute, stirring constantly.",
-                    "To prepare potatoes, place potatoes and garlic in a large Dutch oven; cover with water. Bring to a boil. Reduce heat; simmer 30 minutes or until tender. Drain.",
-                    "Return potatoes and garlic to pan, and place over medium heat. Add sour cream, milk, butter, salt, and 1/4 teaspoon pepper. Mash potato mixture to desired consistency with a potato masher. Stir in chopped chives. Mound 3/4 cup potatoes on each of 8 plates; arrange 3 ounces steak around each serving of potatoes. Drizzle 1 tablespoon sauce on each plate; sprinkle with chive pieces, if desired."
-                ),
-                ""
-            )
-        )
-        // if all recipes are made then notify the adapter that the data has changed
-        adapter.notifyDataSetChanged()
-    }*/
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

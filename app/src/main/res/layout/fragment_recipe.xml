@@ -50,7 +50,7 @@
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:paddingTop="13dp"
-                        android:text="Bereidingstijd:"/>
+                        android:text="@string/preparationtime"/>
                 <TextView
                         android:id="@+id/txtPreparationTime"
                         android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:paddingTop="5dp"
-                        android:text="AantalPersonen:"/>
+                        android:text="@string/servings"/>
                 <TextView
                         android:id="@+id/txtServings"
                         android:layout_width="wrap_content"
@@ -99,7 +99,8 @@
                 android:textColor="@android:color/black"
                 android:textSize="19sp"
                 android:paddingStart="10dp"
-                android:text="Beschrijving:"
+                android:paddingEnd="0dp"
+                android:text="@string/beschrijving"
                 app:layout_constraintTop_toBottomOf="@id/header"/>
         <TextView
                 android:id="@+id/txtDescription"
@@ -117,7 +118,7 @@
                 android:background="@color/colorPrimary"
                 android:fontFamily="@font/source_sans_pro_bold"
                 android:textSize="18sp"
-                android:text="Ingredienten"
+                android:text="@string/ingredients"
                 android:layout_margin="3dp"
                 android:textColor="@android:color/white"
                 android:clickable="true"
@@ -133,7 +134,7 @@
                 android:background="@color/colorPrimary"
                 android:fontFamily="@font/source_sans_pro_bold"
                 android:textSize="18sp"
-                android:text="Werkwijze"
+                android:text="@string/preparation_method"
                 android:layout_margin="3dp"
                 android:textColor="@android:color/white"
                 android:clickable="true"

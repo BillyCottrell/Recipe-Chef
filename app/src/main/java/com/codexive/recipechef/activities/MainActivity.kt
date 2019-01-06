@@ -1,5 +1,7 @@
 package com.codexive.recipechef.activities
 
+import android.arch.lifecycle.ViewModelProviders
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
@@ -11,24 +13,25 @@ import android.view.View
 import com.codexive.recipechef.R
 import com.codexive.recipechef.fragments.*
 import com.codexive.recipechef.model.Recipe
+import com.codexive.recipechef.ui.RecipeViewModel
 import com.google.firebase.database.*
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(),
-    AccountFragment.OnFragmentInteractionListener,
     LeftoversFragment.OnFragmentInteractionListener,
     RecipeListFragment.OnFragmentInteractionListener,
     RecipeFragment.OnFragmentInteractionListener,
-    MyRecipesFragment.OnFragmentInteractionListener{
+    MyRecipesFragment.OnFragmentInteractionListener, AddRecipeFragment.OnFragmentInteractionListener{
 
-    //private val database = FirebaseDatabase.getInstance()
+    private lateinit var viewModel: RecipeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Logger.addLogAdapter(AndroidLogAdapter())
+        viewModel = ViewModelProviders.of(this).get(RecipeViewModel::class.java)
     }
 
     override fun onStart() {
@@ -47,10 +50,6 @@ class MainActivity : AppCompatActivity(),
                     viewpager_main.setCurrentItem(BaseFragment.LEFTOVERS, false)
                     true
                 }
-                R.id.account -> {
-                    viewpager_main.setCurrentItem(BaseFragment.ACCOUNT, false)
-                    true
-                }
                 else -> {
                     viewpager_main.setCurrentItem(BaseFragment.LIST, false)
                     true
@@ -63,7 +62,6 @@ class MainActivity : AppCompatActivity(),
                     BaseFragment.LIST -> return RecipeListFragment.newInstance()
                     BaseFragment.MYRECIPES -> return MyRecipesFragment.newInstance()
                     BaseFragment.LEFTOVERS -> return LeftoversFragment.newInstance()
-                    BaseFragment.ACCOUNT -> return AccountFragment.newInstance()
                 }
                 return RecipeListFragment()
             }
@@ -98,12 +96,6 @@ class MainActivity : AppCompatActivity(),
                         }
                         navigation.selectedItemId = R.id.leftovers
                     }
-                    BaseFragment.ACCOUNT -> {
-                        if (navigation.visibility == View.INVISIBLE) {
-                            navigation.visibility = View.VISIBLE
-                        }
-                        navigation.selectedItemId = R.id.account
-                    }
                 }
             }
         })
@@ -117,12 +109,16 @@ class MainActivity : AppCompatActivity(),
         navigation.setOnNavigationItemReselectedListener(null)
     }
 
-    override fun myRecipesClicked() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun createRecipeClicked() {
+        onBackPressed()
     }
 
-    override fun accountClicked() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun addRecipeClicked() {
+        frame.removeAllViews()
+        switchVisibility(true)
+        appName.visibility = View.VISIBLE
+        appName.text = getString(R.string.addRecipe)
+        supportFragmentManager.beginTransaction().replace(R.id.frame, AddRecipeFragment.newInstance(), "addRecipe").commit()
     }
 
     override fun leftoversClicked() {
@@ -130,9 +126,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun ingredientClicked(recipe: Recipe) {
-        bookmark.visibility = View.GONE
-        like.visibility = View.GONE
-        share.visibility = View.GONE
+        switchVisibility(true)
         appName.text = getString(R.string.ingredients)
         appName.visibility = View.VISIBLE
 
@@ -140,9 +134,7 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun preparationMethodClicked(recipe: Recipe) {
-        bookmark.visibility = View.GONE
-        like.visibility = View.GONE
-        share.visibility = View.GONE
+        switchVisibility(true)
         appName.text = getString(R.string.preparationMethod)
         appName.visibility = View.VISIBLE
 
@@ -150,16 +142,11 @@ class MainActivity : AppCompatActivity(),
     }
 
     override fun recipeClicked(recipe: Recipe) {
+        frame.removeAllViews()
         recipe.views += 1
-        frame.visibility = View.VISIBLE
-        viewpager_main.visibility = View.GONE
-        navigation.visibility = View.GONE
-        bookmark.visibility = View.VISIBLE
-        like.visibility = View.VISIBLE
-        share.visibility = View.VISIBLE
+        viewModel.updateRecipe(recipe)
+        switchVisibility(true)
         supportFragmentManager.beginTransaction().replace(R.id.frame,RecipeFragment.newInstance(recipe), "recipe").commit()
-        backbutton.visibility = View.VISIBLE
-        logo.visibility = View.GONE
         appName.visibility = View.GONE
     }
 
@@ -179,18 +166,25 @@ class MainActivity : AppCompatActivity(),
         supportFragmentManager.popBackStack()
         val recipeFragment = supportFragmentManager.findFragmentByTag("recipe")
         if(recipeFragment != null && recipeFragment.isVisible){
+            switchVisibility(true)
             appName.visibility = View.GONE
-            bookmark.visibility = View.VISIBLE
-            like.visibility = View.VISIBLE
-            share.visibility = View.VISIBLE
         }
-        if(!(supportFragmentManager.backStackEntryCount > 0)){
+        if(supportFragmentManager.backStackEntryCount <= 0){
+            switchVisibility(false)
+        }
+    }
+
+    private fun switchVisibility(showFrame:Boolean){
+        if(showFrame){
+            frame.visibility = View.VISIBLE
+            viewpager_main.visibility = View.GONE
+            navigation.visibility = View.GONE
+            backbutton.visibility = View.VISIBLE
+            logo.visibility = View.GONE
+        } else{
             frame.visibility = View.GONE
             viewpager_main.visibility = View.VISIBLE
             navigation.visibility = View.VISIBLE
-            bookmark.visibility = View.GONE
-            like.visibility = View.GONE
-            share.visibility = View.GONE
             backbutton.visibility = View.GONE
             logo.visibility = View.VISIBLE
             appName.text = getString(R.string.app_name)

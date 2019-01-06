@@ -3,59 +3,56 @@ package com.codexive.recipechef.fragments
 import android.content.Context
 import android.net.Uri
 import android.os.Bundle
+import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
 import com.codexive.recipechef.R
-import kotlinx.android.synthetic.main.fragment_my_recipes.*
-
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-/*private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"*/
+import com.codexive.recipechef.model.Ingredient
+import com.codexive.recipechef.utils.DialogDataSender
+import kotlinx.android.synthetic.main.fragment_add_ingredient_dialog.*
 
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [MyRecipesFragment.OnFragmentInteractionListener] interface
+ * [AddIngredientDialogFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [MyRecipesFragment.newInstance] factory method to
+ * Use the [AddIngredientDialogFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class MyRecipesFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    /*private var param1: String? = null
-    private var param2: String? = null*/
-    private var listener: OnFragmentInteractionListener? = null
+class AddIngredientDialogFragment : DialogFragment() {
 
-    /*override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }*/
-
-    override fun onStart() {
-        super.onStart()
-        addRecipe.setOnClickListener{
-            listener?.addRecipeClicked()
-        }
-    }
+    //private var listener: OnFragmentInteractionListener? = null
+    private var ingredient: Ingredient? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_recipes, container, false)
+        return inflater.inflate(R.layout.fragment_add_ingredient_dialog, container, false)
     }
 
-    override fun onAttach(context: Context) {
+    override fun onStart() {
+        super.onStart()
+        val dataSender = targetFragment as DialogDataSender
+        btnAddIngredient.setOnClickListener {
+            dataSender.passIngredient(
+                Ingredient(
+                    inputIngredientName.text.toString(),
+                    inputIngredientCategory.text.toString(),
+                    inputIngredientQuantity.text.toString(),
+                    inputIngredientMeasurement.text.toString(),
+                    inputIngredientNotes.text.toString()
+                )
+            )
+        }
+    }
+
+    /*override fun onAttach(context: Context) {
         super.onAttach(context)
         if (context is OnFragmentInteractionListener) {
             listener = context
@@ -81,9 +78,8 @@ class MyRecipesFragment : Fragment() {
      * for more information.
      */
     interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun addRecipeClicked()
-    }
+        fun AddIngredientClicked()
+    }*/
 
     companion object {
         /**
@@ -92,11 +88,12 @@ class MyRecipesFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment MyRecipesFragment.
+         * @return A new instance of fragment AddIngredientDialogFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance() =
-            MyRecipesFragment()
+            AddIngredientDialogFragment()
+
     }
 }
