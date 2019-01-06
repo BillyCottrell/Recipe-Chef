@@ -2,6 +2,7 @@ package com.codexive.recipechef.adapter
 
 import android.content.Context
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import com.codexive.recipechef.R
@@ -27,5 +28,29 @@ class RecipeAdapter(private val context:Context, private var recipes: ArrayList<
     override fun onBindViewHolder(holder: RecipeHolder, position: Int) {
         val recipe: Recipe = this.recipes[position]
         holder.setDetails(recipe)
+    }
+
+    fun filter(ingredients: ArrayList<String>){
+        val filteredList = arrayListOf<Recipe>()
+        for (recipe in recipes) {
+            val containsAll = arrayListOf<Boolean>()
+            ingredients.forEach {
+                var contains = false
+                for (ingredient in recipe.ingredients) {
+                    if(ingredient.ingredientName.contains(it)){
+                        Log.d("ingredientName",String.format(ingredient.ingredientName))
+                        contains=true
+                    }
+                }
+                if(contains){
+                    containsAll.add(contains)
+                }
+            }
+            if(containsAll.size==ingredients.size){
+                filteredList.add(recipe)
+            }
+        }
+        this.recipes = filteredList
+        this.notifyDataSetChanged()
     }
 }

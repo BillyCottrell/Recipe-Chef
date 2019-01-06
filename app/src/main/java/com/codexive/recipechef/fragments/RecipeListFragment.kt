@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import com.codexive.recipechef.model.Ingredient
 import com.codexive.recipechef.model.Recipe
 import com.codexive.recipechef.ui.RecipeViewModel
 import com.codexive.recipechef.utils.RecyclerViewClickListener
+import java.io.Serializable
 
 /**
  * A simple [Fragment] subclass.
@@ -36,9 +38,10 @@ class RecipeListFragment : Fragment(), RecyclerViewClickListener {
     private var listener: OnFragmentInteractionListener? = null
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: RecipeAdapter
-    private lateinit var recipeArrayList: ArrayList<Recipe>
+    private var recipeArrayList: ArrayList<Recipe> = arrayListOf()
     private lateinit var viewModel: RecipeViewModel
     private lateinit var binding: FragmentRecipeListBinding
+    private var ingredients : ArrayList<String> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,8 +63,6 @@ class RecipeListFragment : Fragment(), RecyclerViewClickListener {
         // put its layout on Linearlayout and give the context with it
         recyclerView.layoutManager = LinearLayoutManager(this.requireContext())
         recyclerView.setItemViewCacheSize(4)
-        // make an empty arraylist of recipes
-        recipeArrayList = arrayListOf()
         // make a new recipe_list_item adapter with the context, arraylist and itemlistener
         adapter = RecipeAdapter(this.requireContext(), recipeArrayList, this)
         // set the recyclerView its adapter
@@ -73,8 +74,27 @@ class RecipeListFragment : Fragment(), RecyclerViewClickListener {
         return rootView
     }
 
+
     override fun onStart() {
         super.onStart()
+        arguments?.let {
+            val standard = it.getBoolean("standard")
+            if (!standard) {
+                val firstIng = it.getString("firstIng") as String
+                val secondIng = it.getString("secondIng") as String
+                val thirdIng = it.getString("thirdIng") as String
+                if(firstIng!=""){
+                    ingredients.add(firstIng)
+                }
+                if(secondIng!=""){
+                    ingredients.add(secondIng)
+                }
+                if(thirdIng!=""){
+                    ingredients.add(thirdIng)
+                }
+                adapter.filter(ingredients)
+            }
+        }
         isNetworkAvailable(requireContext())
     }
 
@@ -142,7 +162,16 @@ class RecipeListFragment : Fragment(), RecyclerViewClickListener {
          * @return A new instance of fragment RecipeListFragment.
          */
         @JvmStatic
-        fun newInstance() =
-            RecipeListFragment()
+        fun newInstance(standard: Boolean, firstIng : String, secondIng : String, thirdIng : String) =
+            RecipeListFragment().apply {
+                if (!standard) {
+                    arguments = Bundle().apply {
+                        putBoolean("standard", standard)
+                        putString("firstIng", firstIng)
+                        putString("secondIng", secondIng)
+                        putString("thirdIng", thirdIng)
+                    }
+                }
+            }
     }
 }

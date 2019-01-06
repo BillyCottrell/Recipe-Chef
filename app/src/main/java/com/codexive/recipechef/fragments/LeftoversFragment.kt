@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 
 import com.codexive.recipechef.R
+import kotlinx.android.synthetic.main.fragment_leftovers.*
 
 /**
  * A simple [Fragment] subclass.
@@ -41,6 +42,30 @@ class LeftoversFragment : Fragment() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        btnLookupRecipe.setOnClickListener {
+            var errors = false
+            if(inputFirstIngredient.text.toString() == ""){
+                errors = true
+                layoutFirstIngredient.error = "Enter First Ingredient"
+            }
+            if(inputSecondIngredient.text.toString()==""&&inputThirdIngredient.text.toString()!=""){
+                errors = true
+                layoutSecondIngredient.error = "Enter Second Ingredient"
+            }
+            if(!errors){
+                listener?.leftoversClicked(inputFirstIngredient.text.toString(),inputSecondIngredient.text.toString(), inputThirdIngredient.text.toString())
+            }
+            /*if(inputRecipeName.text.toString()==""){
+                errors = true
+                layoutRecipeName.error = getString(R.string.empty_name_error)
+            } else{
+                layoutRecipeName.error = null
+            }*/
+        }
+    }
+
     override fun onDetach() {
         super.onDetach()
         listener = null
@@ -58,7 +83,7 @@ class LeftoversFragment : Fragment() {
      * for more information.
      */
     interface OnFragmentInteractionListener {
-        fun leftoversClicked()
+        fun leftoversClicked(firstIng:String, secondIng:String, thirdIng:String)
     }
 
     companion object {

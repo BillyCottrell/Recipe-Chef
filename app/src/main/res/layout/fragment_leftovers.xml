@@ -1,14 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context=".fragments.LeftoversFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        tools:context=".fragments.LeftoversFragment">
+    <android.support.design.widget.TextInputLayout
+            android:id="@+id/layoutFirstIngredient"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="leftovers"/>
-
-</FrameLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:errorEnabled="true">
+        <EditText
+                android:id="@+id/inputFirstIngredient"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/first_ingredient"
+                android:fontFamily="@font/source_sans_pro_regular"
+                android:imeOptions="actionNext"/>
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+            android:id="@+id/layoutSecondIngredient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:errorEnabled="true"
+    >
+        <EditText
+                android:id="@+id/inputSecondIngredient"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/second_ingredient"
+                android:fontFamily="@font/source_sans_pro_regular"
+                android:imeOptions="actionNext"/>
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+            android:id="@+id/layoutThirdIngredient"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:errorEnabled="true">
+        <EditText
+                android:id="@+id/inputThirdIngredient"
+                android:inputType="text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/third_ingredient"
+                android:fontFamily="@font/source_sans_pro_regular"
+                android:imeOptions="actionNext"/>
+    </android.support.design.widget.TextInputLayout>
+    <Button
+            android:id="@+id/btnLookupRecipe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:background="@color/colorPrimary"
+            android:fontFamily="@font/source_sans_pro_bold"
+            android:textSize="18sp"
+            android:text="@string/lookup"
+            android:layout_marginTop="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:textColor="@android:color/white"
+            android:clickable="true"
+            android:focusable="true"/>
+</LinearLayout>

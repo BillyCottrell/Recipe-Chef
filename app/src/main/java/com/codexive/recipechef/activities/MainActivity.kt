@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity(),
         viewpager_main.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
             override fun getItem(p0: Int): Fragment {
                 when (p0) {
-                    BaseFragment.LIST -> return RecipeListFragment.newInstance()
+                    BaseFragment.LIST -> return RecipeListFragment.newInstance(true, "","","")
                     BaseFragment.MYRECIPES -> return MyRecipesFragment.newInstance()
                     BaseFragment.LEFTOVERS -> return LeftoversFragment.newInstance()
                 }
@@ -121,8 +121,12 @@ class MainActivity : AppCompatActivity(),
         supportFragmentManager.beginTransaction().replace(R.id.frame, AddRecipeFragment.newInstance(), "addRecipe").commit()
     }
 
-    override fun leftoversClicked() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun leftoversClicked(firstIng: String, secondIng: String, thirdIng: String) {
+        switchVisibility(true)
+        appName.text = getString(R.string.filtered_list)
+        appName.visibility = View.VISIBLE
+        Log.d("ingredient", String.format(firstIng))
+        supportFragmentManager.beginTransaction().add(R.id.frame, RecipeListFragment.newInstance(false,firstIng, secondIng, thirdIng)).commit()
     }
 
     override fun ingredientClicked(recipe: Recipe) {

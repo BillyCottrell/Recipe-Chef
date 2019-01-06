@@ -47,4 +47,9 @@
     <string name="no_ingredients_error">Add ingredients</string>
     <string name="no_preparationmethod_error">Add Preparation Method</string>
     <string name="preparationTime_error">Preparationtime should be at least 5min</string>
+    <string name="first_ingredient">First Ingredient</string>
+    <string name="second_ingredient">Second Ingredient</string>
+    <string name="third_ingredient">Third Ingredient</string>
+    <string name="lookup">What can you make?</string>
+    <string name="filtered_list">Filtered List</string>
 </resources>
