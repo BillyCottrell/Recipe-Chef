@@ -70,17 +70,17 @@ class IngredientListFragment : Fragment() {
     }*/
 
     private fun initListData() {
-        val ingredients : ArrayList<Ingredient> = recipe!!.ingredients
-        ingredients.forEach {
+        val ingredients : List<Ingredient> = recipe!!.ingredients
+        for (it in ingredients) {
             if(!(listDataGroup!!.contains(it.category))){
                 listDataGroup!!.add(it.category)
             }
             if(listDataChild!!.containsKey(it.category)){
-                val inglist = listDataChild!![it.category]
+                var inglist = listDataChild!![it.category]
                 inglist!!.add(it)
             } else {
-                val inglist = arrayListOf<Ingredient>()
-                inglist.add(it)
+                var inglist = arrayListOf<Ingredient>()
+                inglist!!.add(it)
                 listDataChild!![it.category] = inglist
             }
         }

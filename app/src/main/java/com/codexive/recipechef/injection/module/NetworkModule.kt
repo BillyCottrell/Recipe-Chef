@@ -2,7 +2,11 @@ package com.codexive.recipechef.injection.module
 
 /*import com.codexive.recipechef.network.RecipeAPI
 import com.codexive.recipechef.utils.BASE_URL*/
+import android.app.Application
 import android.content.Context
+import com.codexive.recipechef.database.RecipeDao
+import com.codexive.recipechef.database.RecipeDatabase
+import com.codexive.recipechef.model.RecipeRepository
 import com.google.firebase.FirebaseApp
 import com.google.firebase.database.FirebaseDatabase
 import dagger.Module
@@ -16,6 +20,7 @@ import javax.inject.Singleton
 
 @Module
 object NetworkModule {
+
     /*@Provides
     @Singleton
     internal fun provideRecipeAPI(retrofit: Retrofit): RecipeAPI {

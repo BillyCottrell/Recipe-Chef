@@ -7,7 +7,8 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules=[NetworkModule::class])
-interface NetworkComponent {
-    fun inject(recViewModel: RecipeViewModel)
+@Component(modules = [NetworkModule::class])
+interface DatabaseComponent {
+    fun inject(app: App)
+    fun inject(recipeViewModel: RecipeViewModel)
 }

@@ -154,16 +154,7 @@ class AddRecipeFragment : Fragment(), DialogDataSender {
             }
             if(!errors){
                 val prepTime = preparationTime.hour*60 + preparationTime.minute
-                val recipe = Recipe(
-                    inputRecipeName.text.toString(),
-                    inputRecipeDescription.text.toString(),
-                    inputRecipeServings.text.toString().toInt(),
-                    ingredients,
-                    prepTime,
-                    preparationMethod,
-                    inputRecipeImage.text.toString()
-                )
-                viewModel.addRecipe(recipe)
+                viewModel.addRecipe(inputRecipeName.text.toString(),inputRecipeDescription.text.toString(),inputRecipeServings.text.toString().toInt(),ingredients,prepTime,preparationMethod,inputRecipeImage.text.toString())
                 listener?.createRecipeClicked()
             }
         }

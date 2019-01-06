@@ -1,12 +1,21 @@
 package com.codexive.recipechef.model
 
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Entity
 import com.squareup.moshi.Json
+import io.reactivex.annotations.Nullable
 import java.io.Serializable
 
-open class Ingredient(
-    @field:Json(name="ingredientName") val ingredientName: String = "",
-    @field:Json(name="category") val category: String = "",
-    @field:Json(name="quantity") val quantity: String? = "",
-    @field:Json(name="measurement") val measurement: String? = "",
-    @field:Json(name="measurement") val notes: String? = ""
+
+data class Ingredient(
+    @field:Json(name="ingredientName")
+    var ingredientName: String = "",
+    @field:Json(name="category")
+    var category: String = "",
+    @field:Json(name="quantity")
+    var quantity: String? = "",
+    @field:Json(name="measurement")
+    var measurement: String? = "",
+    @field:Json(name="notes")
+    var notes: String? = ""
     ) : Serializable
